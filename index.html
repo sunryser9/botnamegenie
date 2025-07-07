@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bot Name Genie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center p-4">
+  <div class="max-w-xl w-full mt-10 text-center">
+    <h1 class="text-4xl font-bold mb-4 text-purple-400">🤖 Bot Name Genie</h1>
+    <p class="text-lg text-gray-300 mb-6">Instantly generate brand-worthy bot names for your AI startup or side project!</p>
+    <input id="botType" type="text" placeholder="Enter your bot type (e.g., health, finance)" class="w-full px-4 py-3 rounded-xl bg-gray-800 text-white focus:outline-none mb-4"/>
+    <button onclick="generateNames()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition">Generate Names</button>
+    <div id="output" class="mt-6 space-y-3"></div>
+  </div>
+
+  <script>
+    const nameBank = ["Spark", "Genie", "Core", "Bot", "Link", "Pulse", "Logic", "Nest", "Wave", "Nexus", "Sync", "Grid", "Flow"];
+
+    function generateNames() {
+      const type = document.getElementById("botType").value.trim();
+      const output = document.getElementById("output");
+      output.innerHTML = "";
+      if (!type) {
+        output.innerHTML = "<p class='text-red-400'>Please enter a bot type.</p>";
+        return;
+      }
+      const suggestions = [];
+      for (let i = 0; i < 5; i++) {
+        const first = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
+        const second = nameBank[Math.floor(Math.random() * nameBank.length)];
+        suggestions.push(`${first}${second}`);
+      }
+      suggestions.forEach(name => {
+        const el = document.createElement("div");
+        el.className = "bg-gray-800 p-3 rounded-xl flex justify-between items-center";
+        el.innerHTML = `<span class='text-lg font-medium'>${name}</span>
+          <a href='https://www.namecheap.com/domains/registration/results/?domain=${name}.com' target='_blank' class='text-purple-400 text-sm hover:underline'>Check Domain</a>`;
+        output.appendChild(el);
+      });
+    }
+  </script>
+</body>
+</html>
